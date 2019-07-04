@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Conpatible" content="IE=Edge" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <div class="navbar navbar-inverse">
+            <div class="navbar-brand"> 
+                Hello User! Welcome To VacBook! Search For Activities Here!   |
+                <h:link value="Worker" outcome="workerIndex"> </h:link>
+            </div>                   
+        </div>
+        <div class="container">
+            <h:messages
+                style="color: red;
+                font-family: 'New Century Schoolbook', serif;
+                font-style: oblique;
+                text-decoration: underline" id="errors1" />
+            <div class="row">
+                <h:form styleClass="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel value="Search By ID" styleClass="control-label col-md-2" />
+                        <div class="col-md-4">
+                            <h:inputText id="searchId" value="#{activityManagedBean.activity.activityId}" required="true" requiredMessage="Please enter ID" 
+                                         validatorMessage="Activity Id should only contain numerics" styleClass="form-control">
+   
+                            </h:inputText>
+                            
+                        </div>
+                        <div class="col-md-2">
+                            <h:commandButton type="submit" id="search_i" value="Search" action="#{activityManagedBean.searchById()}" />                          
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel value="Search By Name" styleClass="control-label col-md-2" />
+                        <div class="col-md-4">
+                            <h:inputText id="searchName" value="#{activityManagedBean.activity.activityName}" styleClass="form-control"/>                        
+                        </div>
+                        <div class="col-md-2">
+                            <h:commandButton type="submit" id="search_n" value="Search" action="#{activityManagedBean.searchByName()}" />                          
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel value="Search By Types" styleClass="control-label col-md-2" />
+                        <div class="col-md-4">
+                            <h:selectOneMenu value = "#{activityManagedBean.activityType}" converter="#{typeController}" styleClass="form-control"> 
+                                <f:selectItems value = "#{activityManagedBean.activityTypes}" var="type" 
+                                               itemLabel="#{type.typeName}"/> 
+                            </h:selectOneMenu>                        
+                        </div>
+                        <div class="col-md-2">
+                            <h:commandButton type="submit" id="search_t" value="Search" action="#{activityManagedBean.searchByType()}" />
+                        </div>
+
+                    </div>
+                </h:form>
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Activity ID</th>
+                            <th>Activity Name</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat var="activities" value="#{activityManagedBean.activities}">
+                            <tr>
+                                <td>#{activities.activityId}</td>
+                                <td>#{activities.activityName}</td>
+                                <td> <h:link value="Details" outcome="activity"
+                                             >                    
+                                        <f:param name="activityID" value="#{activities.activityId} "></f:param>
+                                    </h:link>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+            </div>
+        </div>                    
+
+
+    </h:body>
+</html>

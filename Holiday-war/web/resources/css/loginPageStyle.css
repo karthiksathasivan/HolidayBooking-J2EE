@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 20, 2018, 11:39:03 AM
+    Author     : Karth
+*/
+*{
+    font-family: "Tahoma";
+}
+#login-page{
+    width: 400px;
+    margin: 50px auto;
+}
+
+#login-page table{
+    background-color: #e2e2e2;
+    border: 2px solid #DDD;
+    padding:50px;
+    border-radius: 3px;
+}
+
+:focus{
+    outline:none;
+}
+
+#login-page input[type='text'],#login-page input[type='password']{
+    border: 1px solid #DDD;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+#login-page input[type='submit']{
+    border: 1px solid #DDD;
+    width: 100%;
+    margin-top: 10px;
+    padding:10px;
+    border-radius: 3px;
+    color: white;
+    font-size: 15px;
+    background-color: cornflowerblue;
+    cursor: pointer;
+}
+
+#login-page input[type='submit']:active{
+    background-color: #e1e1e1;
+}

@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Conpatible" content="IE=Edge" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <div class="navbar navbar-inverse">
+            <div class="navbar-brand"> 
+                Welcome To VacBook! Search For Users 
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h:form styleClass="form-horizontal">
+                        <h:messages
+                            style="color: red;
+                            font-family: 'New Century Schoolbook', serif;
+                            font-style: oblique;
+                            text-decoration: underline" id="errors1" />
+                        <div class="form-group">
+                            <h:outputLabel value="First Name" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="firstName" value="#{userManagedBean.sysUser.firstName}" required="true"
+                                             requiredMessage="First Name is mandatory" styleClass="form-control"/>                   
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Last Name" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="lastName" value="#{userManagedBean.sysUser.lastName}" required="true"
+                                             requiredMessage="Last Name is mandatory" styleClass="form-control"/> 
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Email ID" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="email" value="#{userManagedBean.sysUser.email}" required="true"
+                                             requiredMessage="Email is mandatory" validatorMessage="Email is not valid. Please use someone@example.com" styleClass="form-control">
+                                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+
+
+                                </h:inputText>    
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Password" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputSecret id="password" value="#{userManagedBean.sysUser.password}" required="true" requiredMessage="Password Required" validatorMessage="Password length : min 8 max 12" styleClass="form-control">
+                                    <f:validateLength minimum="8" maximum="12" />
+                                </h:inputSecret>                       
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="User Type" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="type" value="#{userManagedBean.sysUser.userType}" required="true" requiredMessage="UserType Required" styleClass="form-control"/>                        
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Street Address" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="street" value="#{userManagedBean.address.streetAddress}" 
+                                             required="true" requiredMessage="Street Address Required" styleClass="form-control"/>                 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="City" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="city" value="#{userManagedBean.address.city}" 
+                                             required="true" requiredMessage="City Required" styleClass="form-control"/>                    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Country" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="country" value="#{userManagedBean.address.country}" 
+                                             required="true" requiredMessage="Country Required" styleClass="form-control"/>                     
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Postcode" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="postcode" value="#{userManagedBean.address.postcode}" 
+                                             required="true" requiredMessage="Postcode Required" validatorMessage="Postcode should only contain numerics" styleClass="form-control">
+                                    <f:validateRegex pattern="^([+]?[\d]+)?$"/>
+                                </h:inputText>   
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Contact Number" styleClass="control-label col-md-2" />
+                            <div class="col-md-6">
+                                <h:inputText id="contact" value="#{userManagedBean.sysUser.contact}" 
+                                             required="true" requiredMessage="Contact Required" validatorMessage="Contact number should be 10 digits and only numerics" styleClass="form-control">
+                                    <f:validateRegex pattern="^([+]?[\d]{10,10})?$"/>
+                                   
+                                </h:inputText>   
+                            </div>
+                        </div>  
+
+
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-2">
+                                <h:inputHidden value="#{userManagedBean.userId}" /> 
+                                <h:commandButton value="Update" action="#{userManagedBean.editSysUser()}" />
+                            </div> 
+                            <div class="col-md-2">
+                                <h:commandButton value="Create" action="#{userManagedBean.addUser()}" />       
+                            </div>
+                        </div>
+                    </h:form>
+                    <table class="table table-bordered table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>ID </th>
+                                <th>Name </th>
+                                <th>Email </th>
+                                <th>City</th>
+                                <th>Contact</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat var="users" value="#{userManagedBean.sysUsers}">
+                                <tr>
+                                    <td>#{users.userID}</td>
+                                    <td>#{users.firstName} #{users.lastName}</td>
+                                    <td>#{users.email}</td>
+                                    <td>#{users.address.city}</td>
+                                    <td>#{users.contact}</td>
+                                    <td>
+                                        <h:form>
+                                            <h:commandLink action="#{userManagedBean.searchById(users.userID)}">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </h:commandLink>                                                
+                                        </h:form>
+                                    </td>
+                                    <td>
+                                        <h:form>
+                                            <h:commandLink action="#{userManagedBean.removeUser(users.userID)}">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </h:commandLink>                                               
+                                        </h:form>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </div>                    
+            <p><h:link value="Return to HomePage" outcome="index"/> </p>  
+        </div> 
+
+    </h:body>
+</html>

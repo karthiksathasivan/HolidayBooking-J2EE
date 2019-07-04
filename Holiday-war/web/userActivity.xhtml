@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Conpatible" content="IE=Edge" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <div class="navbar navbar-inverse">
+            <div class="navbar-brand"> 
+                Book Activity
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h:messages
+                            style="color: red;
+                            font-family: 'New Century Schoolbook', serif;
+                            font-style: oblique;
+                            text-decoration: underline" id="errors1" />
+                    <h:form styleClass="form-horizontal">
+                        <div class="form-group">
+                            <h:outputLabel value="Enter your User ID" styleClass="control-label col-md-2" />
+                            <div class="col-md-2">
+                                <h:inputText id="userID" value="#{userActivityManagedBean.user.userID}" required="true" requiredMessage="Please enter ID" 
+                                         validatorMessage="User Id should only contain numerics" styleClass="form-control"/>                   
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Choose Activity for Booking" styleClass="control-label col-md-2" />
+                            <div class="col-md-4">
+                                <h:selectOneMenu value = "#{userActivityManagedBean.activity.activityId}" styleClass="form-control"> 
+                                    <f:selectItems value = "#{userActivityManagedBean.activities}" var="type" 
+                                                   itemLabel="#{type.activityName}" itemValue="#{type.activityId}"/> 
+                                </h:selectOneMenu>                        
+                            </div>
+                        </div>
+                   
+                
+                    <div class="form-group">
+                        <div class="col-md-2 col-md-offset-2">
+                           
+                                 <h:commandButton value="Confirm" action="#{userActivityManagedBean.addActivity()}"/>
+                        
+                           
+                        </div>
+                        <div class="col-md-2 col-md-offset-2">
+                          
+                                 <h:commandButton value="Update" action="#{userActivityManagedBean.searchById()}" />
+                    
+                           
+                        </div> 
+
+                    </div>
+                        </h:form>
+                    <table class="table table-bordered table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Activity ID</th>
+                                <th>Activity Name</th>
+                                <th>Activity status</th>
+                                <th>Booking Date</th>
+                                <th>Cancel Booking</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat var="activities" value="#{userActivityManagedBean.userActivities}">
+                                <tr>
+                                    <td>#{activities.sysUser.userID}</td>
+                                    <td>#{activities.activity.activityId}</td>
+                                    <td>#{activities.activity.activityName}</td>
+                                    <td>#{activities.activityStatus}</td>
+                                    <td>#{activities.bookingDate}</td> 
+                                    <td>
+                                        <h:form>
+                                        <h:commandLink value="Cancel" action="#{userActivityManagedBean.cancelActivity(activities.activity.activityId, activities.sysUser.userID)}" ></h:commandLink>
+                                    </h:form>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </div>                    
+            <p><h:link value="Return to HomePage" outcome="index"/> </p>  
+        </div> 
+
+    </h:body>
+</html>
